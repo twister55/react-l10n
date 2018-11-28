@@ -1,0 +1,35 @@
+{
+  "name": "react-l10n",
+  "version": "0.0.1",
+  "description": "Localization for React components",
+  "main": "index.js",
+  "scripts": {
+    "start": "babel src --out-dir lib",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/twister55/react-l10n.git"
+  },
+  "keywords": [
+    "react",
+    "l10n",
+    "i18n",
+    "localization",
+    "internalization"
+  ],
+  "author": "Vadim Yelisseyev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/twister55/react-l10n/issues"
+  },
+  "homepage": "https://github.com/twister55/react-l10n#readme",
+  "jest": {
+    "testPathDirs": [
+      "./test"
+    ]
+  },
+  "dependencies": {
+    "react": "^16.6.3"
+  }
+}
