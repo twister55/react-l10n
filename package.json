@@ -29,7 +29,7 @@
     "preset": "ts-jest",
     "testEnvironment": "jsdom"
   },
-  "dependencies": {
+  "peerDependencies": {
     "react": "^16.6.3"
   },
   "devDependencies": {
