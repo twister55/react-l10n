@@ -2,10 +2,8 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import sourceMaps from 'rollup-plugin-sourcemaps';
 import typescript from 'rollup-plugin-typescript2';
-import uglify from 'rollup-plugin-uglify';
 
 const pkg = require('./package.json');
-const env = process.env.NODE_ENV || 'development';
 
 export default {
     input: 'src/index.ts',

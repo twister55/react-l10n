@@ -1,5 +1,5 @@
 import * as React from 'react';
 
 export default React.createContext({
-    messages: {}
+    localize: (key: string): string => key
 });

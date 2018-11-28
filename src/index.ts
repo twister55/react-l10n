@@ -1,6 +1,6 @@
-import LocalizationProvider from './src/components/LocalizationProvider';
-import LocalizationConsumer from './src/components/LocalizationConsumer';
-import LocalizedMessage from './src/components/LocalizedMessage';
+import LocalizationProvider from './components/LocalizationProvider';
+import LocalizationConsumer from './components/LocalizationConsumer';
+import LocalizedMessage from './components/LocalizedMessage';
 
 export {
     LocalizationProvider,
