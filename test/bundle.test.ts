@@ -48,7 +48,7 @@ describe('parse messages', () => {
                 1: 'value31',
                 true: 'value3true'
             },
-            key4: 'value4'
+            key4: ['value40', 'value41', 'value42']
         });
 
         expect(bundle.get('key1.subkey1')).toBe('value11');
@@ -58,7 +58,9 @@ describe('parse messages', () => {
         expect(bundle.get('key2.subkey21.subkey23')).toBe('value23');
         expect(bundle.get('key3.1')).toBe('value31');
         expect(bundle.get('key3.true')).toBe('value3true');
-        expect(bundle.get('key4')).toBe('value4');
+        expect(bundle.get('key4.0')).toBe('value40');
+        expect(bundle.get('key4.2')).toBe('value42');
+        expect(bundle.get('key4.3')).toBeNull();
     });
 
 });

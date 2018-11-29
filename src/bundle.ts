@@ -30,7 +30,11 @@ export default class Bundle {
                     const id = prefix ? `${prefix}.${key}`: key;
                     const value = messages[key];
 
-                    if (typeof value === 'object') {
+                    if (Array.isArray(value)) {
+                        value.forEach((message, index) => {
+                            this.messages[`${id}.${index}`] = message;
+                        });
+                    } else if (typeof value === 'object') {
                         this.parse(value, id);
                     } else {
                         this.messages[id] = value;
