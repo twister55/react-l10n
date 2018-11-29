@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import Context from '../context';
+import Context from './context';
+import Bundle from '../bundle';
 
 interface LocalizationProviderProps {
     messages: object
@@ -8,14 +9,24 @@ interface LocalizationProviderProps {
 }
 
 export default class LocalizationProvider extends React.Component<LocalizationProviderProps> {
-    static defaultProps = {
-        messages: {},
-        debug: false
-    };
+    private bundle: Bundle;
+
+    constructor(props: LocalizationProviderProps) {
+        super(props);
+        this.bundle = new Bundle(props.messages);
+    }
+
+    componentWillReceiveProps(nextProps: LocalizationProviderProps) {
+        if (this.props.messages != nextProps.messages) {
+            this.bundle = new Bundle(nextProps.messages);
+        }
+    }
 
     render() {
-        const localize = (key: string): string => {
-            return this.props.messages[key];
+        const localize = (id: string): string => {
+            const message = this.bundle.get(id);
+
+            return message ? message : id;
         };
 
         return (
