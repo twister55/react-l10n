@@ -1,18 +1,17 @@
+'use strict';
+
 import * as React from 'react';
 import LocalizationConsumer from './LocalizationConsumer';
 
 interface LocalizedMessageProps {
-    id: string
+    id: string;
+    [extraProps: string]: any;
 }
 
-export default class LocalizedMessage extends React.Component<LocalizedMessageProps> {
-
-    render() {
-        return (
-            <LocalizationConsumer>
-                {({ localize }) => localize(this.props.id)}
-            </LocalizationConsumer>
-        );
-    }
-
+export default function LocalizedMessage(props: LocalizedMessageProps) {
+    return (
+        <LocalizationConsumer>
+            {({ localize }) => localize(props.id, props)}
+        </LocalizationConsumer>
+    );
 }

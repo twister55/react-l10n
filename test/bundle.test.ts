@@ -2,7 +2,13 @@
 
 import Bundle from '../src/bundle';
 
-describe('parse messages', () => {
+function expectValue(bundle: Bundle, id: string, value: string) {
+    const resource = bundle.get(id);
+
+    expect(resource && resource.getValue()).toBe(value);
+}
+
+describe('bundle', () => {
 
     test('simple object', () => {
         const bundle = new Bundle({
@@ -12,21 +18,11 @@ describe('parse messages', () => {
             key4: 'value4'
         });
 
-        expect(bundle.get('key1')).toBe('value1');
-        expect(bundle.get('key2')).toBe('value2');
-        expect(bundle.get('key3')).toBe('value3');
-        expect(bundle.get('key4')).toBe('value4');
-        expect(bundle.get('key5')).toBeNull();
-    });
-
-    test('default values', () => {
-        const bundle = new Bundle({
-            key1: 'value1'
-        });
-
-        expect(bundle.get('key1', 'default1')).toBe('value1');
-        expect(bundle.get('key2', 'default2')).toBe('default2');
-        expect(bundle.get('key3')).toBeNull();
+        expectValue(bundle, 'key1', 'value1');
+        expectValue(bundle, 'key2', 'value2');
+        expectValue(bundle, 'key3', 'value3');
+        expectValue(bundle, 'key4', 'value4');
+        expect(bundle.get('key5')).toBeUndefined();
     });
 
     test('nested objects', () => {
@@ -51,16 +47,16 @@ describe('parse messages', () => {
             key4: ['value40', 'value41', 'value42']
         });
 
-        expect(bundle.get('key1.subkey1')).toBe('value11');
-        expect(bundle.get('key1.subkey2')).toBe('value12');
-        expect(bundle.get('key2.subkey21.subkey212.subkey2121')).toBe('value');
-        expect(bundle.get('key2.subkey21.subkey212.subkey2122')).toBe('value1');
-        expect(bundle.get('key2.subkey21.subkey23')).toBe('value23');
-        expect(bundle.get('key3.1')).toBe('value31');
-        expect(bundle.get('key3.true')).toBe('value3true');
-        expect(bundle.get('key4.0')).toBe('value40');
-        expect(bundle.get('key4.2')).toBe('value42');
-        expect(bundle.get('key4.3')).toBeNull();
+        expectValue(bundle, 'key1.subkey1', 'value11');
+        expectValue(bundle, 'key1.subkey2', 'value12');
+        expectValue(bundle, 'key2.subkey21.subkey212.subkey2121', 'value');
+        expectValue(bundle, 'key2.subkey21.subkey212.subkey2122', 'value1');
+        expectValue(bundle, 'key2.subkey21.subkey23', 'value23');
+        expectValue(bundle, 'key3.1', 'value31');
+        expectValue(bundle, 'key3.true', 'value3true');
+        expectValue(bundle, 'key4.0', 'value40');
+        expectValue(bundle, 'key4.2', 'value42');
+        expect(bundle.get('key4.3')).toBeUndefined();
     });
 
 });

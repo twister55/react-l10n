@@ -1,43 +1,45 @@
 'use strict';
 
+import Resource from './resource';
+
 export default class Bundle {
-    private readonly messages: object;
+    private readonly resources: object;
 
-    constructor(messages?: object) {
-        this.messages = {};
+    constructor(resources?: object) {
+        this.resources = {};
 
-        this.parse(messages);
+        this.parse(resources);
     }
 
-    get(id: string, defaultMessage?: string): string|null {
-        const message = this.messages[id];
+    get(id: string, defaultResource?: string): Resource|undefined {
+        const resource = this.resources[id];
 
-        if (message) {
-            return message;
+        if (resource) {
+            if (typeof resource === 'string') {
+                this.resources[id] = new Resource(resource);
+            }
+
+            return this.resources[id];
         }
 
-        if (defaultMessage) {
-            return defaultMessage;
-        }
-
-        return null;
+        return defaultResource ? new Resource(defaultResource) : undefined;
     }
 
-    private parse(messages?: object, prefix?: string): void {
-        if (messages) {
-            for (let key in messages) {
-                if (messages.hasOwnProperty(key)) {
+    private parse(resources?: object, prefix?: string): void {
+        if (resources) {
+            for (let key in resources) {
+                if (resources.hasOwnProperty(key)) {
                     const id = prefix ? `${prefix}.${key}`: key;
-                    const value = messages[key];
+                    const value = resources[key];
 
                     if (Array.isArray(value)) {
-                        value.forEach((message, index) => {
-                            this.messages[`${id}.${index}`] = message;
+                        value.forEach((resource, index) => {
+                            this.resources[`${id}.${index}`] = resource;
                         });
                     } else if (typeof value === 'object') {
                         this.parse(value, id);
                     } else {
-                        this.messages[id] = value;
+                        this.resources[id] = value;
                     }
                 }
             }
