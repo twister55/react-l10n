@@ -23,10 +23,10 @@ export default class LocalizationProvider extends React.Component<LocalizationPr
     }
 
     render() {
-        const localize = (id: string, data: object): string => {
+        const localize = (id: string, data: object): any => {
             const resource = this.bundle.get(id);
 
-            return resource ? resource.getValue(data) : id;
+            return resource ? resource.getParts(data) : id;
         };
 
         return (

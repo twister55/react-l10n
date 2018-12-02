@@ -9,9 +9,19 @@ interface LocalizedMessageProps {
 }
 
 export default function LocalizedMessage(props: LocalizedMessageProps) {
+    const data = {...props};
+
+    React.Children.map(props.children, child => {
+        if (child.key) {
+            data[child.key] = child;
+        }
+
+        return child;
+    });
+
     return (
         <LocalizationConsumer>
-            {({ localize }) => localize(props.id, props)}
+            {({ localize }) => localize(props.id, data)}
         </LocalizationConsumer>
     );
 }

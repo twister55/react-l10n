@@ -10,8 +10,12 @@ export default class Resource {
         this.parts = parse(resource);
     }
 
+    getParts(data = {}) {
+        return this.parts.map(part => part.getValue(data));
+    }
+
     getValue(data = {}) {
-        return this.parts.map(part => part.getValue(data)).join('');
+        return this.getParts(data).join('');
     }
 
 }
