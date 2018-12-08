@@ -37,7 +37,7 @@ describe('localized message', () => {
         );
         const { container } = render(component);
 
-        expect(container.innerHTML === 'my name is <a href="#">Jon Doe</a>').toBeTruthy();
+        expect(container.innerHTML).toBe('my name is <a href="#">Jon Doe</a>');
         expect(container.querySelector('a') !== null).toBeTruthy();
     });
 
@@ -51,7 +51,7 @@ describe('localized message', () => {
         );
         const { container } = render(component);
 
-        expect(container.innerHTML === 'my name is <a href="#">Jon Doe</a>').toBeTruthy();
+        expect(container.innerHTML).toBe('my name is <a href="#">Jon Doe</a>');
         expect(container.querySelector('a') !== null).toBeTruthy();
     });
 

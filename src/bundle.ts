@@ -11,7 +11,7 @@ export default class Bundle {
         this.parse(resources);
     }
 
-    get(id: string, defaultResource?: string): Resource|undefined {
+    get(id: string): Resource|null {
         const resource = this.resources[id];
 
         if (resource) {
@@ -22,7 +22,7 @@ export default class Bundle {
             return this.resources[id];
         }
 
-        return defaultResource ? new Resource(defaultResource) : undefined;
+        return null;
     }
 
     private parse(resources?: object, prefix?: string): void {
@@ -34,7 +34,7 @@ export default class Bundle {
 
                     if (Array.isArray(value)) {
                         value.forEach((resource, index) => {
-                            this.resources[`${id}.${index}`] = resource;
+                            this.resources[`${id}[${index}]`] = resource;
                         });
                     } else if (typeof value === 'object') {
                         this.parse(value, id);

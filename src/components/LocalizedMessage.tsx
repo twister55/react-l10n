@@ -2,26 +2,22 @@
 
 import * as React from 'react';
 import LocalizationConsumer from './LocalizationConsumer';
-
-interface LocalizedMessageProps {
-    id: string;
-    [extraProps: string]: any;
-}
+import { LocalizedMessageProps } from './types';
 
 export default function LocalizedMessage(props: LocalizedMessageProps) {
-    const data = {...props};
+    const children = {};
 
     React.Children.map(props.children, child => {
         if (child.key) {
-            data[child.key] = child;
+            children[child.key] = child;
         }
 
-        return child;
+        return children;
     });
 
     return (
         <LocalizationConsumer>
-            {({ localize }) => localize(props.id, data)}
+            {({ localize }) => localize(props.id, props, children)}
         </LocalizationConsumer>
     );
 }

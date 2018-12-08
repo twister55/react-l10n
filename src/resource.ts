@@ -1,21 +1,21 @@
 'use strict';
 
-import Part from './parts/part';
-import parse from './parts/parse';
+import tokenize, { Token } from './tokens';
+import ResourceContext from './resource-context';
 
 export default class Resource {
-    private readonly parts: Part[];
+    private readonly _tokens: Token[];
 
     constructor(resource: string) {
-        this.parts = parse(resource);
+        this._tokens = tokenize(resource);
     }
 
-    getParts(data = {}) {
-        return this.parts.map(part => part.getValue(data));
-    }
+    tokens(ctx: ResourceContext): [] {
+        const results: [] = [];
 
-    getValue(data = {}) {
-        return this.getParts(data).join('');
+        this._tokens.forEach(token => token.apply(ctx, results));
+
+        return results;
     }
 
 }

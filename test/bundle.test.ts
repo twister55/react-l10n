@@ -1,11 +1,13 @@
 'use strict';
 
 import Bundle from '../src/bundle';
+import Resource from '../src/resource';
+import ResourceContext from '../src/resource-context';
 
-function expectValue(bundle: Bundle, id: string, value: string) {
-    const resource = bundle.get(id);
+const ctx = new ResourceContext();
 
-    expect(resource && resource.getValue()).toBe(value);
+function getValue(resource: Resource|null) {
+    return resource && resource.tokens(ctx).join('');
 }
 
 describe('bundle', () => {
@@ -18,11 +20,11 @@ describe('bundle', () => {
             key4: 'value4'
         });
 
-        expectValue(bundle, 'key1', 'value1');
-        expectValue(bundle, 'key2', 'value2');
-        expectValue(bundle, 'key3', 'value3');
-        expectValue(bundle, 'key4', 'value4');
-        expect(bundle.get('key5')).toBeUndefined();
+        expect(getValue(bundle.get('key1'))).toBe('value1');
+        expect(getValue(bundle.get('key2'))).toBe('value2');
+        expect(getValue(bundle.get('key3'))).toBe('value3');
+        expect(getValue(bundle.get('key4'))).toBe('value4');
+        expect(bundle.get('key5')).toBeNull();
     });
 
     test('nested objects', () => {
@@ -47,16 +49,16 @@ describe('bundle', () => {
             key4: ['value40', 'value41', 'value42']
         });
 
-        expectValue(bundle, 'key1.subkey1', 'value11');
-        expectValue(bundle, 'key1.subkey2', 'value12');
-        expectValue(bundle, 'key2.subkey21.subkey212.subkey2121', 'value');
-        expectValue(bundle, 'key2.subkey21.subkey212.subkey2122', 'value1');
-        expectValue(bundle, 'key2.subkey21.subkey23', 'value23');
-        expectValue(bundle, 'key3.1', 'value31');
-        expectValue(bundle, 'key3.true', 'value3true');
-        expectValue(bundle, 'key4.0', 'value40');
-        expectValue(bundle, 'key4.2', 'value42');
-        expect(bundle.get('key4.3')).toBeUndefined();
+        expect(getValue(bundle.get('key1.subkey1'))).toBe('value11');
+        expect(getValue(bundle.get('key1.subkey2'))).toBe('value12');
+        expect(getValue(bundle.get('key2.subkey21.subkey212.subkey2121'))).toBe('value');
+        expect(getValue(bundle.get('key2.subkey21.subkey212.subkey2122'))).toBe('value1');
+        expect(getValue(bundle.get('key2.subkey21.subkey23'))).toBe('value23');
+        expect(getValue(bundle.get('key3.1'))).toBe('value31');
+        expect(getValue(bundle.get('key3.true'))).toBe('value3true');
+        expect(getValue(bundle.get('key4[0]'))).toBe('value40');
+        expect(getValue(bundle.get('key4[2]'))).toBe('value42');
+        expect(bundle.get('key4.3')).toBeNull();
     });
 
 });
