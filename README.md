@@ -77,11 +77,11 @@ const Greeting = props => (
 import React from 'react';
 import LocalizedMessage from 'react-l10n';
 
-// resources = { greeting: 'Knock, knock, {user.name}' }
+// resources = { greeting: 'Knock, knock, {user}' }
 // user = { name: 'Neo' };
 const TextWithLink = props => (
   <LocalizedMessage id='greeting'>
-    <a key='user' href='#'>{user.name}</a>
+    <a key='user' href='#'>{props.user.name}</a>
   </LocalizedMessage>
 );
 
@@ -96,8 +96,7 @@ import React from 'react';
 import LocalizedMessage from 'react-l10n';
 
 // resources = { greeting: 'User from {code ? RUS={Russia} F= {France} D ={Germany} I = {Italy}}' }
-// user = { name: 'Neo' };
-const TextWithLink = props => (
+const TextWithLink = () => (
   <LocalizedMessage id='greeting' code='RUS'/>
 );
 // output: 'User from Russia'
