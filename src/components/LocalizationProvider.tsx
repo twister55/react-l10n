@@ -27,6 +27,10 @@ export default class LocalizationProvider extends React.Component<LocalizationPr
                 return resource.tokens(new ResourceContext(data, children));
             }
 
+            if (this.props.onMissingResource) {
+                return this.props.onMissingResource(id);
+            }
+
             return id;
         };
 

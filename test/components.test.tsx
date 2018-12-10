@@ -55,4 +55,28 @@ describe('localized message', () => {
         expect(container.querySelector('a') !== null).toBeTruthy();
     });
 
+    test('missing resource', () => {
+        const component = (
+            <LocalizationProvider messages={{ key: 'value' }}>
+                <LocalizedMessage id='foo' />
+            </LocalizationProvider>
+        );
+        const { container } = render(component);
+
+        expect(container.innerHTML).toBe('foo');
+    });
+
+
+    test('missing resource with custom handler', () => {
+        const missingResource = 'no resource';
+        const component = (
+            <LocalizationProvider messages={{ key: 'value' }} onMissingResource={() => missingResource}>
+                <LocalizedMessage id='foo' />
+            </LocalizationProvider>
+        );
+        const { container } = render(component);
+
+        expect(container.innerHTML).toBe(missingResource);
+    });
+
 });
