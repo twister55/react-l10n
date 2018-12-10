@@ -1,6 +1,6 @@
 'use strict';
 
-import Bundle from '../src/bundle';
+import ResourcesBundle from '../src/bundle';
 import Resource from '../src/resource';
 import ResourceContext from '../src/resource-context';
 
@@ -13,7 +13,7 @@ function getValue(resource: Resource|null) {
 describe('bundle', () => {
 
     test('simple object', () => {
-        const bundle = new Bundle({
+        const bundle = new ResourcesBundle({
             key1: 'value1',
             key2: 'value2',
             key3: 'value3',
@@ -28,7 +28,7 @@ describe('bundle', () => {
     });
 
     test('nested objects', () => {
-        const bundle = new Bundle({
+        const bundle = new ResourcesBundle({
             key1: {
                 subkey1: 'value11',
                 subkey2: 'value12'

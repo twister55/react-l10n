@@ -2,7 +2,7 @@
 
 import Resource from './resource';
 
-export default class Bundle {
+export default class ResourcesBundle {
     private readonly resources: object;
 
     constructor(resources?: object) {

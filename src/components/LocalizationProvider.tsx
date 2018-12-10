@@ -1,21 +1,29 @@
 import * as React from 'react';
 
 import Context from './context';
-import Bundle from '../bundle';
+import ResourcesBundle from '../resources-bundle';
 import ResourceContext, { ChildrenIndex } from '../resource-context';
-import { LocalizationProviderProps } from './types';
+
+export interface LocalizationProviderProps {
+    resources: object
+    onMissingResource?: MissingResourceHandler
+}
+
+export interface MissingResourceHandler {
+    (id: string): string
+}
 
 export default class LocalizationProvider extends React.Component<LocalizationProviderProps> {
-    private bundle: Bundle;
+    private bundle: ResourcesBundle;
 
     constructor(props: LocalizationProviderProps) {
         super(props);
-        this.bundle = new Bundle(props.messages);
+        this.bundle = new ResourcesBundle(props.resources);
     }
 
     componentWillReceiveProps(nextProps: LocalizationProviderProps) {
-        if (this.props.messages !== nextProps.messages) {
-            this.bundle = new Bundle(nextProps.messages);
+        if (this.props.resources !== nextProps.resources) {
+            this.bundle = new ResourcesBundle(nextProps.resources);
         }
     }
 

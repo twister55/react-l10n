@@ -6,7 +6,7 @@ describe('localized message', () => {
 
     test('simple text', () => {
         const component = (
-            <LocalizationProvider messages={{ foo: 'bar' }}>
+            <LocalizationProvider resources={{ foo: 'bar' }}>
                 <LocalizedMessage id='foo'/>
             </LocalizationProvider>
         );
@@ -17,7 +17,7 @@ describe('localized message', () => {
 
     test('text with value', () => {
         const component = (
-            <LocalizationProvider messages={{ foo: 'my name is {user.name}' }}>
+            <LocalizationProvider resources={{ foo: 'my name is {user.name}' }}>
                 <LocalizedMessage id='foo' user={{ name: 'Jon Doe' }}/>
             </LocalizationProvider>
         );
@@ -29,7 +29,7 @@ describe('localized message', () => {
     test('text with component as child', () => {
         const user = { name: 'Jon Doe' };
         const component = (
-            <LocalizationProvider messages={{ foo: 'my name is {user}' }}>
+            <LocalizationProvider resources={{ foo: 'my name is {user}' }}>
                 <LocalizedMessage id='foo'>
                     <a key="user" href="#">{user.name}</a>
                 </LocalizedMessage>
@@ -45,7 +45,7 @@ describe('localized message', () => {
         const user = { name: 'Jon Doe' };
         const userLink = <a key="user" href="#">{user.name}</a>;
         const component = (
-            <LocalizationProvider messages={{ foo: 'my name is {user}' }}>
+            <LocalizationProvider resources={{ foo: 'my name is {user}' }}>
                 <LocalizedMessage id='foo' user={userLink}/>
             </LocalizationProvider>
         );
@@ -57,7 +57,7 @@ describe('localized message', () => {
 
     test('missing resource', () => {
         const component = (
-            <LocalizationProvider messages={{ key: 'value' }}>
+            <LocalizationProvider resources={{ key: 'value' }}>
                 <LocalizedMessage id='foo' />
             </LocalizationProvider>
         );
@@ -70,7 +70,7 @@ describe('localized message', () => {
     test('missing resource with custom handler', () => {
         const missingResource = 'no resource';
         const component = (
-            <LocalizationProvider messages={{ key: 'value' }} onMissingResource={() => missingResource}>
+            <LocalizationProvider resources={{ key: 'value' }} onMissingResource={() => missingResource}>
                 <LocalizedMessage id='foo' />
             </LocalizationProvider>
         );

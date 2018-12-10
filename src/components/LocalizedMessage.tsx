@@ -2,7 +2,11 @@
 
 import * as React from 'react';
 import LocalizationConsumer from './LocalizationConsumer';
-import { LocalizedMessageProps } from './types';
+
+export interface LocalizedMessageProps {
+    id: string
+    [data: string]: any
+}
 
 export default function LocalizedMessage(props: LocalizedMessageProps) {
     const children = {};

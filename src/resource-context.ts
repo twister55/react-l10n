@@ -4,7 +4,7 @@ import { ReactElement } from 'react';
 import accessObject from './utils/access-object';
 
 export type ChildrenIndex = {
-    [key: string]: ReactElement<any>
+    [key: string]: ReactElement<any>|undefined
 };
 
 export default class ResourceContext {

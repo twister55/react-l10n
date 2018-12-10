@@ -1,11 +1,11 @@
 {
-  "name": "localized-messages",
+  "name": "hello-world",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "react-l10n": "^0.1.1",
+    "react-l10n": "^0.2.3",
     "react-scripts": "2.1.1"
   },
   "scripts": {
